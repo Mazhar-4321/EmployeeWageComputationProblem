@@ -3,6 +3,15 @@ package com.company;
 public class EmployeeWage {
     private int fullDayHour;
     private int wagePerHour;
+    private int partTimeHour;
+
+    public int getPartTimeHour() {
+        return partTimeHour;
+    }
+
+    public void setPartTimeHour(int partTimeHour) {
+        this.partTimeHour = partTimeHour;
+    }
 
     public int getFullDayHour() {
         return fullDayHour;

@@ -5,6 +5,7 @@ public class Main {
     public static final int ABSENT = 0;
     public static final int WAGE_PER_HOUR = 20;
     public static final int FULL_DAY_HOUR = 8;
+    public static final int PART_TIME_HOUR = 8;
 
     public static void main(String[] args) {
         System.out.println("Welcome To Employee Wage Computation Program");
@@ -25,5 +26,8 @@ public class Main {
         employee.setEmployeeWage(employeeWage);
         int dailyEmployeeWage = attendanceStatus * employee.getDailyEmployeeWage();
         System.out.println("Daily Employee Wage=" + dailyEmployeeWage);
+        employeeWage.setPartTimeHour(PART_TIME_HOUR);
+
+
     }
 }

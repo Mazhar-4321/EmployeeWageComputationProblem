@@ -3,6 +3,15 @@ package com.company;
 public class Employee {
     private int attendance;
     private EmployeeWage employeeWage;
+    private EmployeeType employeeType;
+
+    public EmployeeType getEmployeeType() {
+        return employeeType;
+    }
+
+    public void setEmployeeType(EmployeeType employeeType) {
+        this.employeeType = employeeType;
+    }
 
     public int getDailyEmployeeWage() {
         return employeeWage.getFullDayHour() * employeeWage.getWagePerHour();
