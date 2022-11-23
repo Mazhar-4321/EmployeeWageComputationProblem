@@ -7,6 +7,7 @@ public class Main {
     public static final int FULL_DAY_HOUR = 8;
     public static final int PART_TIME_HOUR = 8;
     public static final int MONTHLY_WORKING_DAYS = 20;
+    public static final int MAX_WORKING_HOURS = 100;
 
 
     public static void main(String[] args) {
@@ -22,17 +23,20 @@ public class Main {
         employeeWage.setPartTimeHour(PART_TIME_HOUR);
         employeeWage.setMonthlyHours(MONTHLY_WORKING_DAYS);
         int workedDays = 0;
-        while (workedDays <= MONTHLY_WORKING_DAYS) {
-            EmployeeType employeeType =employee.getEmployeeType();
+        int workedHours = 0;
+        while (workedDays <= MONTHLY_WORKING_DAYS || workedHours <= MAX_WORKING_HOURS) {
+            EmployeeType employeeType = employee.getEmployeeType();
             switch (employee.getAttendance()) {
                 case PRESENT:
-                    employee.setWagesPermonth(employeeType.equals(EmployeeType.PART_TIME)?PART_TIME_HOUR:FULL_DAY_HOUR);
+                    int currentWorkingHours = employeeType.equals(EmployeeType.PART_TIME) ? PART_TIME_HOUR : FULL_DAY_HOUR;
+                    employee.setWagesPermonth(currentWorkingHours);
+                    workedHours += currentWorkingHours;
                     break;
                 case ABSENT:
                     break;
             }
             workedDays++;
         }
-        System.out.println("Monthly Wages="+employee.getWagesPermonth());
+        System.out.println("Monthly Wages=" + employee.getWagesPermonth());
     }
 }
