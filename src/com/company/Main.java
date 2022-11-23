@@ -26,7 +26,7 @@ public class Main {
         employee.setEmployeeWage(employeeWage);
         int dailyEmployeeWage = attendanceStatus * employee.getDailyEmployeeWage();
         System.out.println("Daily Employee Wage=" + dailyEmployeeWage);
-        employeeWage.setPartTimeHour(PART_TIME_HOUR);;
+        employeeWage.setPartTimeHour(PART_TIME_HOUR);
 
 
     }
