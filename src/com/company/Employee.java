@@ -4,12 +4,23 @@ public class Employee {
     private int attendance;
     private EmployeeWage employeeWage;
     private EmployeeType employeeType;
+    private int wagesPermonth;
+
+    public int getWagesPermonth() {
+        return wagesPermonth;
+    }
+
+    public void setWagesPermonth(int wagesPermonth) {
+        this.wagesPermonth = this.wagesPermonth+ employeeWage.getWagePerHour()*wagesPermonth;
+    }
 
     public EmployeeType getEmployeeType() {
+        int randomNumber = getRandomNumber(0, 1);
+        setEmployeeType(randomNumber == 0 ? EmployeeType.PART_TIME : EmployeeType.FULL_TIME);
         return employeeType;
     }
 
-    public void setEmployeeType(EmployeeType employeeType) {
+    private void setEmployeeType(EmployeeType employeeType) {
         this.employeeType = employeeType;
     }
 
