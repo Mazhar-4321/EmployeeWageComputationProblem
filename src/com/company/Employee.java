@@ -14,7 +14,7 @@ public class Employee {
         if (wagesForMaxWorkingDaysOrMaxMonthlyHours != null) {
             return wagesForMaxWorkingDaysOrMaxMonthlyHours;
         }
-        wagesForMaxWorkingDaysOrMaxMonthlyHours=0;
+        wagesForMaxWorkingDaysOrMaxMonthlyHours = 0;
         int workedDays = 0;
         int workedHours = 0;
         flag = true;
@@ -44,7 +44,7 @@ public class Employee {
         if (wagesPermonth != null) {
             return wagesPermonth;
         }
-        wagesPermonth=0;
+        wagesPermonth = 0;
         int workedDays = 0;
         flag = true;
         final int MONTHLY_WORKING_DAYS = employeeWage.getMonthlyWorkingDays();
@@ -69,9 +69,9 @@ public class Employee {
 
     private void setWagesPermonthOrMaxMonthlyHours(int offset, int currentWorkingHours) {
         if (offset == MONTHLY_WAGE_CALCULATION) {
-            this.wagesPermonth = this.wagesPermonth + employeeWage.getWagePerHour() * currentWorkingHours;
+            this.wagesPermonth += getDailyEmployeeWage(currentWorkingHours);
         } else {
-            this.wagesForMaxWorkingDaysOrMaxMonthlyHours = this.wagesForMaxWorkingDaysOrMaxMonthlyHours + employeeWage.getWagePerHour() * currentWorkingHours;
+            this.wagesForMaxWorkingDaysOrMaxMonthlyHours += getDailyEmployeeWage(currentWorkingHours);
 
         }
     }
