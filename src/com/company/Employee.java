@@ -1,17 +1,79 @@
 package com.company;
 
 public class Employee {
-    private int attendance;
+    private final int MONTHLY_WAGE_CALCULATION = 1;
+    private final int MONTHLY_WAGE_OR_MAX_WORKING_HOURS_CALCULATION = 2;
+    private Integer attendance;
     private EmployeeWage employeeWage;
     private EmployeeType employeeType;
-    private int wagesPermonth;
+    private Integer wagesPermonth;
+    private Integer wagesForMaxWorkingDaysOrMaxMonthlyHours;
+    private Boolean flag;
 
-    public int getWagesPermonth() {
+    public int calculateWagesTillMaxWorkingDaysOrMaxMonthlyHours() {
+        if (wagesForMaxWorkingDaysOrMaxMonthlyHours != null) {
+            return wagesForMaxWorkingDaysOrMaxMonthlyHours;
+        }
+        wagesForMaxWorkingDaysOrMaxMonthlyHours=0;
+        int workedDays = 0;
+        int workedHours = 0;
+        flag = true;
+        final int MONTHLY_WORKING_DAYS = employeeWage.getMonthlyWorkingDays();
+        final int MAX_WORKING_HOURS = employeeWage.getMonthlyHours();
+        final int PRESENT = 1;
+        final int ABSENT = 0;
+        final int PART_TIME_HOUR = employeeWage.getPartTimeHour();
+        final int FULL_DAY_HOUR = employeeWage.getFullDayHour();
+        while (workedDays <= MONTHLY_WORKING_DAYS || workedHours <= MAX_WORKING_HOURS) {
+            switch (getAttendance()) {
+                case PRESENT:
+                    int currentWorkingHours = getEmployeeType().equals(EmployeeType.PART_TIME) ? PART_TIME_HOUR : FULL_DAY_HOUR;
+                    setWagesPermonthOrMaxMonthlyHours(MONTHLY_WAGE_OR_MAX_WORKING_HOURS_CALCULATION, currentWorkingHours);
+                    workedHours += currentWorkingHours;
+                    break;
+                case ABSENT:
+                    break;
+            }
+            workedDays++;
+        }
+        flag = false;
+        return wagesForMaxWorkingDaysOrMaxMonthlyHours;
+    }
+
+    public int calculateWagesPermonth() {
+        if (wagesPermonth != null) {
+            return wagesPermonth;
+        }
+        wagesPermonth=0;
+        int workedDays = 0;
+        flag = true;
+        final int MONTHLY_WORKING_DAYS = employeeWage.getMonthlyWorkingDays();
+        final int PRESENT = 1;
+        final int ABSENT = 0;
+        final int PART_TIME_HOUR = employeeWage.getPartTimeHour();
+        final int FULL_DAY_HOUR = employeeWage.getFullDayHour();
+        while (workedDays <= MONTHLY_WORKING_DAYS) {
+            switch (getAttendance()) {
+                case PRESENT:
+                    int currentWorkingHours = getEmployeeType().equals(EmployeeType.PART_TIME) ? PART_TIME_HOUR : FULL_DAY_HOUR;
+                    setWagesPermonthOrMaxMonthlyHours(MONTHLY_WAGE_CALCULATION, currentWorkingHours);
+                    break;
+                case ABSENT:
+                    break;
+            }
+            workedDays++;
+        }
+        flag = false;
         return wagesPermonth;
     }
 
-    public void setWagesPermonth(int wagesPermonth) {
-        this.wagesPermonth = this.wagesPermonth+ employeeWage.getWagePerHour()*wagesPermonth;
+    private void setWagesPermonthOrMaxMonthlyHours(int offset, int currentWorkingHours) {
+        if (offset == MONTHLY_WAGE_CALCULATION) {
+            this.wagesPermonth = this.wagesPermonth + employeeWage.getWagePerHour() * currentWorkingHours;
+        } else {
+            this.wagesForMaxWorkingDaysOrMaxMonthlyHours = this.wagesForMaxWorkingDaysOrMaxMonthlyHours + employeeWage.getWagePerHour() * currentWorkingHours;
+
+        }
     }
 
     public EmployeeType getEmployeeType() {
@@ -24,8 +86,8 @@ public class Employee {
         this.employeeType = employeeType;
     }
 
-    public int getDailyEmployeeWage() {
-        return employeeWage.getFullDayHour() * employeeWage.getWagePerHour();
+    public int getDailyEmployeeWage(int workingHours) {
+        return workingHours * employeeWage.getWagePerHour();
     }
 
     public EmployeeWage getEmployeeWage() {
@@ -37,12 +99,7 @@ public class Employee {
     }
 
     public int getAttendance() {
-        attendance = getRandomNumber(0, 1);
-        return attendance;
-    }
-
-    public void setAttendance(int attendance) {
-        this.attendance = attendance;
+        return attendance == null || flag ? getRandomNumber(0, 1) : attendance;
     }
 
     private int getRandomNumber(int min, int max) {

@@ -9,34 +9,19 @@ public class Main {
     public static final int MONTHLY_WORKING_DAYS = 20;
     public static final int MAX_WORKING_HOURS = 100;
 
-
     public static void main(String[] args) {
         System.out.println("Welcome To Employee Wage Computation Program");
         Employee employee = new Employee();
-        int attendanceStatus = PRESENT;
         EmployeeWage employeeWage = new EmployeeWage();
         employeeWage.setWagePerHour(WAGE_PER_HOUR);
         employeeWage.setFullDayHour(FULL_DAY_HOUR);
-        employee.setEmployeeWage(employeeWage);
-        int dailyEmployeeWage = attendanceStatus * employee.getDailyEmployeeWage();
-        System.out.println("Daily Employee Wage=" + dailyEmployeeWage);
         employeeWage.setPartTimeHour(PART_TIME_HOUR);
-        employeeWage.setMonthlyHours(MONTHLY_WORKING_DAYS);
-        int workedDays = 0;
-        int workedHours = 0;
-        while (workedDays <= MONTHLY_WORKING_DAYS || workedHours <= MAX_WORKING_HOURS) {
-            EmployeeType employeeType = employee.getEmployeeType();
-            switch (employee.getAttendance()) {
-                case PRESENT:
-                    int currentWorkingHours = employeeType.equals(EmployeeType.PART_TIME) ? PART_TIME_HOUR : FULL_DAY_HOUR;
-                    employee.setWagesPermonth(currentWorkingHours);
-                    workedHours += currentWorkingHours;
-                    break;
-                case ABSENT:
-                    break;
-            }
-            workedDays++;
-        }
-        System.out.println("Monthly Wages=" + employee.getWagesPermonth());
+        employeeWage.setMonthlyHours(MAX_WORKING_HOURS);
+        employeeWage.setMonthlyWorkingDays(MONTHLY_WORKING_DAYS);
+        employee.setEmployeeWage(employeeWage);
+        int dailyEmployeeWage = employee.getDailyEmployeeWage(FULL_DAY_HOUR);
+        System.out.println("Daily Employee Wage=" + dailyEmployeeWage);
+        System.out.println("Monthly Wages=" + employee.calculateWagesPermonth());
+        System.out.println("Monthly Wages or Max Working Hours Wages="+employee.calculateWagesTillMaxWorkingDaysOrMaxMonthlyHours());
     }
 }

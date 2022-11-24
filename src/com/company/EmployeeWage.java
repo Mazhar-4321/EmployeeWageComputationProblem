@@ -5,6 +5,15 @@ public class EmployeeWage {
     private int wagePerHour;
     private int partTimeHour;
     private int monthlyHours;
+    private int monthlyWorkingDays;
+
+    public int getMonthlyWorkingDays() {
+        return monthlyWorkingDays;
+    }
+
+    public void setMonthlyWorkingDays(int monthlyWorkingDays) {
+        this.monthlyWorkingDays = monthlyWorkingDays;
+    }
 
     public int getMonthlyHours() {
         return monthlyHours;
