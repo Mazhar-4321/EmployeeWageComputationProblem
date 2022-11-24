@@ -72,13 +72,11 @@ public class Employee {
             this.wagesPermonth += getDailyEmployeeWage(currentWorkingHours);
         } else {
             this.wagesForMaxWorkingDaysOrMaxMonthlyHours += getDailyEmployeeWage(currentWorkingHours);
-
         }
     }
 
     public EmployeeType getEmployeeType() {
-        int randomNumber = getRandomNumber(0, 1);
-        setEmployeeType(randomNumber == 0 ? EmployeeType.PART_TIME : EmployeeType.FULL_TIME);
+        setEmployeeType(getRandomNumber(0, 1) == 0 ? EmployeeType.PART_TIME : EmployeeType.FULL_TIME);
         return employeeType;
     }
 
@@ -103,8 +101,7 @@ public class Employee {
     }
 
     private int getRandomNumber(int min, int max) {
-        int randomNumber = (int) (Math.random() * (max - min + 1)) + min;
-        return randomNumber;
+        return (int) (Math.random() * (max - min + 1)) + min;
     }
 
 }
